@@ -1,0 +1,70 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <!--디폴트로 어떤것을 사용할지 정할 수 있음-->
+    <environments default="production">
+
+        <!--개발자용-->
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+
+            <dataSource type="POOLED">
+                <property name="driver" value="oracle.jdbc.OracleDriver"/>
+
+                <!--ezconnect-->
+                <property name="url" value="jdbc:log4jdbc:oracle:thin:@localhost:1521/XE"/>
+
+                <!--tnsAlias-->
+                <!--<property name="url" value="jdbc:oracle:thin:@XE?TNS_ADMIN=C:/oraclexe/app/oracle/product/11.2.0/server/network/ADMIN"/>-->
+
+                <property name="username" value="ADMIN"/>
+                <property name="password" value="Oracle12345!!!"/>
+            </dataSource>
+        </environment>
+
+        <!--실제용-->
+
+
+        <environment id="production">
+            <transactionManager type="JDBC" />
+
+            <dataSource type="POOLED">
+                <property name="driver"
+                    value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
+                <!--FQCN : log4jdbc 라이브러리 안에 있는 JDBC Driver class 이름 -->
+                <!--1 . EZ CONNECT -->
+                <property name="url"
+                    value="jdbc:log4jdbc:oracle:thin:@db202110221035_high?TNS_ADMIN=C:/opt/OracleCloudWallet/ATP" /> <!-- 드라이브spy 설정 -->
+
+                <property name="username" value="ADMIN" />
+                <property name="password" value="Oracle12345!!!" />
+
+                <property name="poolMaximumActiveConnections" value="10" />
+                <property name="poolMaximumIdleConnections" value="3" />
+                <property name="poolTimeToWait" value="20000" />
+                <property name="poolPingQuery" value="SELECT 1 FROM dual" />
+                <property name="poolPingEnabled" value="true" />
+                <property name="poolTimeToWait" value="60000" />
+
+                <property name="driver.encoding" value="utf8" />
+
+            </dataSource>
+        </environment>
+
+    </environments>
+
+    <mappers>
+        <mapper resource="/resources/mapper/cafeMapper.xml"/>
+        <mapper resource="/resources/mapper/calendarMapper.xml"/>
+        <mapper resource="/resources/mapper/managerMapper.xml"/>
+        <mapper resource="/resources/mapper/memberMapper.xml"/>
+        <mapper resource="/resources/mapper/studyInsMapper.xml"/>
+        <mapper resource="/resources/mapper/studyMapper.xml"/>
+    </mappers>
+
+</configuration>
